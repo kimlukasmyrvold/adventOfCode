@@ -28,26 +28,19 @@ const part1 = (): number => {
 };
 
 const part2 = (): number => {
-    const countOccurrences = (arr: number[]): { [key: string]: number } => {
-        const count: { [key: string]: number } = {};
+    const rightOccurrences: Map<number, number> = new Map();
 
-        arr.forEach(num => {
-            if (count[num]) count[num]++;
-            else count[num] = 1;
-        });
+    right.forEach(num => {
+        rightOccurrences.set(num, (rightOccurrences.get(num) || 0) + 1);
+    });
 
-        return count;
+    let score: number = 0;
+
+    for (const num of left) {
+        if (rightOccurrences.has(num)) score += num * rightOccurrences.get(num)!;
     }
 
-    const rightOccurrences = countOccurrences(right);
-    let similarityScore: number = 0;
-
-    for (const line of left) {
-        const timesInRight: number = rightOccurrences[line] ?? 0;
-        similarityScore += line * timesInRight;
-    }
-
-    return similarityScore;
+    return score;
 };
 
 console.log('Total distance:', part1());
