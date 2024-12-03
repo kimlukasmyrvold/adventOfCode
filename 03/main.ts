@@ -15,11 +15,10 @@ const result = (): [number, number] => {
     for (const match of matches) {
         if (match === "do()") enab = true;
         else if (match === "don't()") enab = false;
-        else if (match.startsWith('mul(') && match.endsWith(')')) {
-            const [n1, n2] = match.slice(4, -1).split(',').map(Number);
-            const p = n1 * n2;
-            p1 += p;
-            if (enab) p2 += p;
+        else if (/mul\(\d+,\d+\)/g.test(match)) {
+            const res = match.split('mul(')[1].slice(0, -1).split(',').reduce((acc, num) => acc * Number(num), 1);
+            p1 += res;
+            if (enab) p2 += res;
         }
     }
 
