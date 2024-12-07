@@ -13,10 +13,9 @@ const guardInitLocation: number[] = lines.flatMap((line, row) => line.map((char,
 let guardLocations: number[][] = [guardInitLocation];
 let positions: number = 0;
 
-while (guardLocations[guardLocations.length - 1][0] !== rowLen) {
-    guardLocations.push([guardLocations[guardLocations.length - 1][0] + 1, guardLocations[0][guardLocations.length - 1]]);
-    console.log(guardLocations);
-
+while (guardLocations[guardLocations.length - 1][0] < rowLen - 1 && guardLocations[guardLocations.length - 1][0] > 0) {
+    const [x, y] = guardLocations[guardLocations.length - 1];
+    guardLocations.push([x - 1, y]);
 }
 
 // for (let row: number = 0; row < rowLen; row++) {
@@ -40,7 +39,6 @@ while (guardLocations[guardLocations.length - 1][0] !== rowLen) {
 //     console.log('\n');
 // }
 
-// console.log(guardInitLocation);
-console.log(guardLocations);
-
+console.log('\nguardInitLocation:', guardInitLocation);
+console.log('guardLocations:', guardLocations);
 console.log('Distinct positions:', positions);
